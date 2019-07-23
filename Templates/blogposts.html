@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Build a Blog</h1>
+                <head>
+                    <style>
+                        textarea {
+                            padding: 12px 20px;
+                            box-sizing: border-box;
+                            border: 2px solid #ccc;
+                            border-radius: 4px;
+                            background-color: #f8f8f8;
+                            resize: none;
+                        }
+                        textarea {
+                            margin: 80px 0;
+                            width: 540px;
+                            height: 200px;           
+                        }
+                    </style>
+                </head>
+
+
+                <form action= /addPost>
+            <input type="submit" value='Add Blog Post' />
+    </form>
+
+    <hr />
+
+    {% if blogs|length == 0 %}
+    <p>No blogs yet</p>
+    {% else %}
+
+        <ul>
+            {% for blog in blogs %}
+            <li><a href="/?id={{blog.id}}">{{blog.blog_title}}</a>
+                <br>
+                    {{blog.blog_post}}
+                <form method="POST" action="/delete-blog" style="display:inline-block;">
+                    <input type="hidden" name="blog-id" value="{{blog.id}}" />
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+
+    {% endif %}
+
+    <hr />
+
+    <ul>
+        {% for blog in completed_blogs %}
+        <li>{{blog.name}}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}
